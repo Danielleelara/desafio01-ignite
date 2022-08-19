@@ -6,10 +6,19 @@ import logoImg from '../assets/images/logo/logo.png';
 
 interface HeaderProps {
   tasksCounter: number;
+  task: string;
+  tasks: string[]
 }
 
-export function Header({ tasksCounter }: HeaderProps) {
-  // const tasksCounterText = TODO render 'tarefa' if tasksCounter equals 1, otherwise render 'tarefas'
+export function Header({ tasksCounter, task, tasks }: HeaderProps) {
+  //  const tasksCounterText = TODO render 'tarefa' if tasksCounter equals 1, otherwise render 'tarefas'
+
+  const tasksCounterText = () => {
+    if(tasksCounter === 1){
+      return task
+    }
+    return tasks
+  }
   
   return (
     <View style={styles.container}>
@@ -17,7 +26,7 @@ export function Header({ tasksCounter }: HeaderProps) {
       
       <View style={styles.tasks}>
         <Text style={styles.tasksCounter}>Você tem </Text>
-        {/* <Text style={styles.tasksCounterBold}>{tasksCounter} {tasksCounterText}</Text> */}
+        <Text style={styles.tasksCounterBold}>{tasksCounter} {tasksCounterText}</Text>
       </View>
     </View>
   )
