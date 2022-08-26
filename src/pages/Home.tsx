@@ -5,7 +5,6 @@ import { Header } from '../components/Header';
 import { Task, TasksList } from '../components/TasksList';
 import { TodoInput } from '../components/TodoInput';
 
-
 export function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
 
