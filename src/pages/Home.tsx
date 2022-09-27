@@ -1,12 +1,28 @@
 import React, { useState } from "react";
-import { Alert, StyleSheet, View } from "react-native";
+import { Alert, StyleSheet,  View } from "react-native";
 
 import { Header } from "../components/Header";
-import { Task, TasksList } from "../components/TasksList";
+import { TasksList } from "../components/TasksList";
 import { TodoInput } from "../components/TodoInput";
 
-export function Home() {
+export interface Task {
+  id: number;
+  title: string;
+  done?: boolean;
+}
+
+interface TasksListProps {
+  item: Task ;
+  index: number;
+}
+
+
+export function Home({item ,
+  index}:TasksListProps) {
   const [tasks, setTasks] = useState<Task[]>([]);
+  // const [values, setValue] = useState({
+  //   name: '',
+  // })
 
   function handleAddTask(newTaskTitle: string) {
     const task = {
@@ -48,6 +64,15 @@ export function Home() {
     );
   }
 
+  function handleEditTask(taskId:number ,taskNewTitle: string){
+    const newTasks = tasks.map((task) => {
+      if (task.id === taskId) return { ...task, title: taskNewTitle };
+      return task;
+    });
+    setTasks(newTasks);
+  }
+
+
   return (
     <View style={styles.container}>
       <Header tasksCounter={tasks.length} />
@@ -55,9 +80,12 @@ export function Home() {
       <TodoInput addTask={handleAddTask} />
 
       <TasksList
+       item={item} 
+       index={index}
         tasks={tasks}
         toggleTaskDone={handleToggleTaskDone}
         removeTask={handleRemoveTask}
+        editTask={handleEditTask}
       />
     </View>
   );
